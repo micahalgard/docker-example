@@ -1,0 +1,16 @@
+docker build -t docker-example .
+docker run -it -v ${PWD}:/usr/src/app -v us/src/app/node_modules -p 3000:3000 --rm react-example
+docker login --username=micahalgard
+docker images
+docker tag 8d15a03b2497 micahalgard/docker-example 
+docker push micahalgard/docker-example 
+docker-compose up -d --build 
+docker-compose stop
+# allows you to set multiple containers and then get them started with one command
+docker run -d --mount type=bind,source=/Users/micahalgard/learning/docker/bind-mount/data,target=/var/data/ nginx
+###
+bind mount:
+- bind mounting a volume is the opposite of using volumes
+- if you want persisting data to be created inside the container, you use volumes
+- if you want leverage a directory in your local directory you use bind mount
+- use bind mount if you want a local folder to be accesible in your container
