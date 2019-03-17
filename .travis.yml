@@ -3,4 +3,14 @@ services:
   - docker
 
 script:
-  - docker build -t docker-example .
+  - docker build -t micahalgard/docker-example .
+  - docker images
+
+before_deploy:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+deploy:
+  provider: script
+  script: docker push micahalgard/docker-example
+  on:
+    branch: master
